@@ -1,0 +1,15 @@
+.idea
+.idea/*
+*.iml
+*/*.iml
+*.log
+.DS_Store
+*/target
+target/
+.settings
+.classpath
+.project
+.externalToolBuilders
+*.orig
+lib/
+
