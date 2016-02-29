@@ -1,0 +1,45 @@
+@startuml
+
+actor main
+
+create Client
+main -> Client : new
+
+create DevicesFactory
+main -> DevicesFactory: new
+
+main -> Client : test(song)
+activate Client
+
+Client -> DevicesFactory: createMedia
+create Media
+DevicesFactory->Media: new
+
+Client -> DevicesFactory: createPlayer
+create Player
+DevicesFactory->Player: new
+
+Client -> DevicesFactory: createRecorder
+create Recorder
+DevicesFactory->Recorder: new
+
+Client -> Recorder : accept(media)
+Client -> Recorder : record(song)
+activate Recorder
+Recorder --> Client
+deactivate Recorder
+
+Client -> Player : accept(media)
+Client -> Player : play()
+activate Player
+Player --> Client
+deactivate Player
+
+destroy Media
+destroy Player
+destroy Recorder
+
+Client --> main
+deactivate Client
+
+@enduml

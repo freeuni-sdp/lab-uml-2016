@@ -1,0 +1,113 @@
+@startuml
+
+title  Abstract Factory
+
+class Client {
+	-DevicesFactory technology
+	+void selectTechnology(DevicesFactory df)
+	+void test(String song)
+	+{static}void main(String[] args)
+}
+
+interface DevicesFactory {
+	Player createPlayer()
+	Recorder createRecorder()
+	Media createMedia()
+}
+
+interface Media {
+}
+
+interface Player {
+	void accept(Media med)
+	void play()
+}
+
+interface Recorder {
+	void accept(Media med)
+	void record(String record)
+}
+
+class TapeDevicesFactory {
+	+Player createPlayer()
+	+Recorder createRecorder()
+	+Media createMedia()
+}
+
+
+DevicesFactory <|---down TapeDevicesFactory
+
+class Tape {
+	-String tape
+	+Tape()
+	+void saveOnTape(String sound)
+	+String readTape()
+}
+
+Media <|-- Tape
+
+class TapePlayer {
+	-Tape tapeInside
+	+void accept(Media med)
+	+void play()
+}
+
+Player <|-- TapePlayer
+
+class TapeRecorder {
+	-Tape tapeInside
+	+TapeRecorder()
+	+void accept(Media med)
+	+void record(String record)
+}
+
+Recorder <|-- TapeRecorder
+
+TapeDevicesFactory -down..> TapePlayer
+TapeDevicesFactory -down..> TapeRecorder
+TapeDevicesFactory -down..> Tape
+
+
+class CDDevicesFactory {
+	+Player createPlayer()
+	+Recorder createRecorder()
+	+Media createMedia()
+}
+
+DevicesFactory <|---down CDDevicesFactory
+
+class CD {
+	-String track
+	+void writeOnDisk(String newtrack)
+	+String readDisk()
+}
+
+Media <|-- CD
+
+class CDPlayer {
+	-CD cdInside
+	+void accept(Media med)
+	+void play()
+}
+
+Player <|-- CDPlayer
+
+class CDRecorder {
+	-CD cdInside
+	+void accept(Media med)
+	+void record(String record)
+}
+
+Recorder <|-- CDRecorder
+
+CDDevicesFactory -down..> CDPlayer
+CDDevicesFactory -down..> CDRecorder
+CDDevicesFactory -down..> CD
+
+Client -right-> DevicesFactory
+Client -down-> Media
+Client -down-> Player
+Client -down-> Recorder
+
+
+@enduml
