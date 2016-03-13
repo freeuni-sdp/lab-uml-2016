@@ -1,7 +1,7 @@
 @startuml
 
-'Iterator UML class diagram'
-'By Nika Chkhartishvili'
+/' Iterator UML class diagram '/
+/' By Nika Chkhartishvili '/
 
 title Iterator
 
