@@ -26,7 +26,13 @@ class DestinationsIterator {
     -position : int
 }
 
+class IteratorMain {
+    +{static}main() : void
+}
+
 Iterable <|-- Destinations
 Iterator <|-- DestinationsIterator
+IteratorMain --> Iterable
+IteratorMain --> Iterator
 
 @enduml
