@@ -1,0 +1,26 @@
+@startuml
+title Object Adapter Sequence
+
+actor Main
+create RectangleObjectAdapter
+Main -> RectangleObjectAdapter : new
+
+create Rectangle
+RectangleObjectAdapter -> Rectangle : new
+Main -> RectangleObjectAdapter : setId()
+
+Main -> RectangleObjectAdapter : define(float,float,float,float,String)
+
+RectangleObjectAdapter -> Rectangle : setShape(float,float,float,float,String)
+
+Main -> RectangleObjectAdapter : println()
+Main -> RectangleObjectAdapter : getId()
+Main -> RectangleObjectAdapter : getSurface()
+RectangleObjectAdapter -> Rectangle : getArea()
+Main -> Rectangle : getColor()
+Rectangle -> Main : finished
+
+
+
+
+@enduml

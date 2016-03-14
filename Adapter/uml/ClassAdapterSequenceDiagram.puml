@@ -1,0 +1,26 @@
+@startuml
+title Class Adapter Sequence
+
+actor Main
+create RectangleClassAdapter
+Main -> RectangleClassAdapter : new
+participant "Rectangle" as C
+
+
+
+Main -> RectangleClassAdapter : setId()
+
+Main -> RectangleClassAdapter : define(float,float,float,float,String)
+activate C
+
+RectangleClassAdapter -> C : setShape(float,float,float,float,String)
+
+Main -> RectangleClassAdapter : println()
+Main -> RectangleClassAdapter : getId()
+Main -> RectangleClassAdapter : getSurface()
+RectangleClassAdapter -> C : getArea()
+Main -> C : getColor()
+C -> Main : finished
+
+
+@enduml
