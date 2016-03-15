@@ -1,0 +1,43 @@
+@startuml
+
+enum VideoPlayerMode {
+    PLAYING,
+    STOPPED
+}
+
+interface VideoPlayerState {
+	~play(VideoPlayerContext context): void;
+	~stop(VideoPlayerContext context): void;
+	~getMode(): VideoPlayerMode;
+}
+
+class VideoPlayerStoppedState {
+	+play(VideoPlayerContext context): void;
+	+stop(VideoPlayerContext context): void;
+	+getMode(): VideoPlayerMode;
+}
+
+class VideoPlayerPlayingState {
+	+play(VideoPlayerContext context): void;
+	+stop(VideoPlayerContext context): void;
+	+getMode(): VideoPlayerMode;
+}
+
+class VideoPlayerContext {
+	+play(): void;
+	+stop(): void;
+	+getCurrentMode(): VideoPlayerMode;
+	+changeState(VideoPlayerState state): void;
+	-internalState: VideoPlayerState;
+}
+
+class TestVideoPlayer {
+    +main(String[] args): void;
+}
+
+TestVideoPlayer --> VideoPlayerContext
+VideoPlayerState <|.. VideoPlayerPlayingState
+VideoPlayerState <|.. VideoPlayerStoppedState
+VideoPlayerContext o-- VideoPlayerState
+
+@enduml
