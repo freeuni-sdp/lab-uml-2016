@@ -1,0 +1,38 @@
+@startuml
+
+/' Iterator UML class diagram '/
+/' By Nika Chkhartishvili '/
+
+title Iterator
+
+interface Iterator {
+    +first() : void
+    +next() : void
+    +isDone() : void
+    +currentItem() : Object
+}
+
+interface Iterable {
+    +createIterator() : Iterator
+}
+
+class Destinations {
+    +add(String value) : void
+    -destinations : ArrayList<String>
+}
+
+class DestinationsIterator {
+    -destinations : ArrayList<String>
+    -position : int
+}
+
+class IteratorMain {
+    +{static}main() : void
+}
+
+Iterable <|-- Destinations
+Iterator <|-- DestinationsIterator
+IteratorMain --> Iterable
+IteratorMain --> Iterator
+
+@enduml

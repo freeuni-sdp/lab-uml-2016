@@ -18,6 +18,11 @@ public class TimeImplementationC2 extends CloneableTime {
 	}
 
 	@Override
+	public void setHours(int hr) {
+		secs = secs%3600 + hr*3600;
+	}
+
+	@Override
 	public void setTime(int hr, int min, int sec) {
 		secs = hr * 3600 + min * 60 + sec;
 	}

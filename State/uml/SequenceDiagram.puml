@@ -1,0 +1,49 @@
+@startuml
+
+title State Pattern Sequence Diagram
+
+actor main
+
+create VideoPlayerContext
+main -> VideoPlayerContext: new
+
+create VideoPlayerState
+VideoPlayerContext ---> VideoPlayerState: creates variable
+
+create VideoPlayerStoppedState
+VideoPlayerContext -> VideoPlayerStoppedState: new
+
+loop 3 times
+    main -> VideoPlayerContext: play()
+    VideoPlayerContext -> VideoPlayerState: play(this)
+    VideoPlayerState -> VideoPlayerStoppedState: play(context)
+    create VideoPlayerPlayingState
+    VideoPlayerStoppedState -> VideoPlayerPlayingState: e: new
+    VideoPlayerStoppedState -> VideoPlayerContext: changeState(e)
+    main -> VideoPlayerContext: getCurrentMode()
+    main <-- VideoPlayerContext: VideoPlayerMode
+
+    main -> VideoPlayerContext: stop()
+    VideoPlayerContext -> VideoPlayerState: stop(this)
+    VideoPlayerState -> VideoPlayerPlayingState: stop(context)
+    VideoPlayerPlayingState -> VideoPlayerStoppedState: e: new
+    VideoPlayerPlayingState -> VideoPlayerContext: changeState(e)
+    main -> VideoPlayerContext: getCurrentMode()
+    main <-- VideoPlayerContext: VideoPlayerMode
+end
+
+main -> VideoPlayerContext: stop()
+VideoPlayerContext -> VideoPlayerState: stop(this)
+VideoPlayerState -> VideoPlayerStoppedState: stop(context)
+VideoPlayerStoppedState -> VideoPlayerContext: changeState(this)
+main -> VideoPlayerContext: getCurrentMode()
+main <-- VideoPlayerContext: VideoPlayerMode
+
+main -> VideoPlayerContext: play()
+VideoPlayerContext -> VideoPlayerState: play(this)
+VideoPlayerState -> VideoPlayerStoppedState: play(context)
+VideoPlayerStoppedState -> VideoPlayerPlayingState: e: new
+VideoPlayerStoppedState -> VideoPlayerContext: changeState(e)
+main -> VideoPlayerContext: getCurrentMode()
+main <-- VideoPlayerContext: VideoPlayerMode
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+title prototype sequence diagram
+
+actor main
+create TimeImplementationC
+main -> TimeImplementationC: new
+main -> TimeImplementationC: setTime()
+main -> SchedulerC: calculateEnd(start, duration)
+activate SchedulerC
+
+SchedulerC -> TimeImplementationC: cloneItself()
+activate TimeImplementationC
+create endTime
+TimeImplementationC -> endTime: create clone
+TimeImplementationC --> SchedulerC: endTime
+deactivate TimeImplementationC
+SchedulerC -> endTime: setHour(+duration)
+SchedulerC --> main: endTime
+deactivate SchedulerC
+@enduml
