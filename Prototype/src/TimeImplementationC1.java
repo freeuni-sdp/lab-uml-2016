@@ -18,6 +18,11 @@ public class TimeImplementationC1 extends CloneableTime {
 	}
 
 	@Override
+	public void setHours(int hr) {
+		this.hr = hr;
+	}
+
+	@Override
 	public void setTime(int hr, int min, int sec) {
 		this.hr = hr;
 		this.min = min;
