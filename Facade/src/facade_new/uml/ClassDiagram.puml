@@ -1,0 +1,43 @@
+@startuml
+
+title  Facade
+class PointCarte {
+    -double x
+    -double y
+    +void move(int dx, int dy)
+    +Double getX()
+    +Double getY()
+}
+
+class Point {
+    +void move( int dx, int dy )
+    +void rotate( int angle, Point o )
+    -PointCarte pc
+}
+
+class Line {
+    +void move( int dx, int dy )
+    +void rotate( int angle )
+    -Point o
+    -Point e
+}
+
+class PointPolar {
+    +void rotate( int ang )
+    -radius
+    -angle
+}
+
+class FacadeDemo{
+    {static}main(String args[])
+}
+
+FacadeDemo ..> Line: "<<create>>"
+FacadeDemo ..> "2" Point: "<<create>>"
+Point ..> PointPolar: ""<<create>>"
+Point ..> "1" PointCarte: "<<create>>"
+
+Point *--> "1" PointPolar
+Line *--> "2" Point
+Point *--> "1" PointCarte
+@enduml
