@@ -1,0 +1,25 @@
+@startuml
+actor user
+participant Line
+
+create Point
+user ->Point: new 2
+create PointCarte
+Point ->PointCarte: new
+Point -->user:
+
+create Line
+user ->Line: new(Point1, Point2)
+user ->Line: rotate(int)
+activate Line
+Line ->Point: rotate(int)
+create PointPolar
+Point ->PointPolar: new
+Point ->PointPolar: rotate(int)
+PointPolar -->Point
+destroy PointPolar
+Point ->PointCarte: new
+Point -->Line
+deactivate Line
+
+@enduml
