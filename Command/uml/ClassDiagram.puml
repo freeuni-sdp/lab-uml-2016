@@ -1,0 +1,83 @@
+@startuml
+
+title \n<b>Command</b>\n\n
+
+class CommandExample {
+    {static} +void main()
+}
+
+interface Command {
+    +void execute()
+}
+
+class TV {
+	-TV_STATE power
+	-int volume
+	-int channel
+	--
+	+void power()
+	+void volumeUp()
+	+void volumeDown()
+	+void setChannel(int ch)
+}
+
+class TVPowerCommand {
+    -TV theTV
+    --
+    +void execute()
+}
+
+class TVSetChannelCommand {
+    -TV theTV
+    --
+    +void execute()
+    ..
+    -int acceptNumber()
+}
+
+class TVVolumeDownCommand{
+    -TV theTV
+    --
+    +void execute()
+}
+
+class TVVolumeUpCommand {
+    -TV theTV
+    --
+    +void execute()
+}
+
+class UniversalRemoteControl {
+    -Command buttonPower
+    -Command buttonArrowUp
+    -Command buttonArrowDown
+    -Command keypadToEnterNumber
+    --
+    +void pressButtonPower()
+    +void pressButtonArrowUp()
+    +void pressButtonArrowDown()
+    +void pressKeypadToEnterNumber()
+}
+
+Command <|-- TVPowerCommand
+Command <|-- TVSetChannelCommand
+Command <|-- TVVolumeDownCommand
+Command <|-- TVVolumeUpCommand
+
+CommandExample ..> TVPowerCommand: <<create>>
+CommandExample ..> TVSetChannelCommand: <<create>>
+CommandExample ..> TVVolumeDownCommand: <<create>>
+CommandExample ..> TVVolumeUpCommand: <<create>>
+CommandExample ..> TV: <<create>>
+CommandExample ..> UniversalRemoteControl: <<create>>
+
+TVPowerCommand o--> "1" TV
+TVSetChannelCommand o--> "1" TV
+TVVolumeDownCommand o--> "1" TV
+TVVolumeUpCommand o--> "1" TV
+
+UniversalRemoteControl *--> "4" Command
+
+
+
+@enduml

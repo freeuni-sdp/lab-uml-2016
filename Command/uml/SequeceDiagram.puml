@@ -1,0 +1,111 @@
+@startuml
+
+title \n<b>Command</b>\n\n
+
+actor main
+
+create TV
+main -> TV: new
+
+create TVPowerCommand
+main -> TVPowerCommand: new
+
+create TVVolumeUpCommand
+main -> TVVolumeUpCommand: new
+
+create TVVolumeDownCommand
+main -> TVVolumeDownCommand: new
+
+create TVSetChannelCommand
+main -> TVSetChannelCommand: new
+
+create UniversalRemoteControl
+main -> UniversalRemoteControl: new
+
+loop while nOption is not 9
+
+    alt nOption is 1
+
+        main -> UniversalRemoteControl: pressButtonPower
+        activate UniversalRemoteControl
+
+        UniversalRemoteControl -> TVPowerCommand: execute
+        activate TVPowerCommand
+
+        TVPowerCommand -> TV: power
+        activate TV
+
+        TV --> TVPowerCommand
+        deactivate TV
+
+        TVPowerCommand --> UniversalRemoteControl
+        deactivate TVPowerCommand
+
+        UniversalRemoteControl --> main
+        deactivate UniversalRemoteControl
+
+    else nOption is 2
+
+        main -> UniversalRemoteControl: pressButtonArrowUp
+        activate UniversalRemoteControl
+
+        UniversalRemoteControl -> TVVolumeUpCommand: execute
+        activate TVVolumeUpCommand
+
+        TVVolumeUpCommand -> TV: volumeUp
+        activate TV
+
+        TV --> TVVolumeUpCommand
+        deactivate TV
+
+        TVVolumeUpCommand --> UniversalRemoteControl
+        deactivate TVVolumeUpCommand
+
+        UniversalRemoteControl --> main
+        deactivate UniversalRemoteControl
+
+    else nOption is 3
+
+        main -> UniversalRemoteControl: pressButtonArrowDown
+        activate UniversalRemoteControl
+
+        UniversalRemoteControl -> TVVolumeDownCommand: execute
+        activate TVVolumeDownCommand
+
+        TVVolumeDownCommand -> TV: volumeDowns
+        activate TV
+
+        TV --> TVVolumeDownCommand
+        deactivate TV
+
+        TVVolumeDownCommand --> UniversalRemoteControl
+        deactivate TVVolumeDownCommand
+
+        UniversalRemoteControl --> main
+        deactivate UniversalRemoteControl
+
+    else nOption is 4
+
+        main -> UniversalRemoteControl: pressKeypadToEnterNumber
+        activate UniversalRemoteControl
+
+        UniversalRemoteControl -> TVSetChannelCommand: execute
+        activate TVSetChannelCommand
+
+        TVSetChannelCommand -> TV: setChannel(ch)
+        activate TV
+
+        TV --> TVSetChannelCommand
+        deactivate TV
+
+        TVSetChannelCommand --> UniversalRemoteControl
+        deactivate TVSetChannelCommand
+
+        UniversalRemoteControl --> main
+        deactivate UniversalRemoteControl
+
+    end
+
+end
+
+@enduml
