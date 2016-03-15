@@ -2,18 +2,19 @@
 title prototype sequence diagram
 
 actor main
-
+create TimeImplementationC
 main -> TimeImplementationC: new
 main -> TimeImplementationC: setTime()
 main -> SchedulerC: calculateEnd(start, duration)
-activate main
+activate SchedulerC
 
 SchedulerC -> TimeImplementationC: cloneItself()
-activate SchedulerC
-return endTime
-deactivate SchedulerC
+activate TimeImplementationC
+create endTime
+TimeImplementationC -> endTime: create clone
+TimeImplementationC --> SchedulerC: endTime
+deactivate TimeImplementationC
 SchedulerC -> endTime: setHour(+duration)
 SchedulerC --> main: endTime
-deactivate main
-main->endTime: printTime()
+deactivate SchedulerC
 @enduml
