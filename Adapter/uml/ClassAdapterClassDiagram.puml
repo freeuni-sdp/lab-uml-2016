@@ -1,0 +1,45 @@
+@startuml
+
+title Class Adapter
+
+class Client {
+
+}
+
+interface Polygon {
+    +define() : void
+    +getSurface() : float
+    +getCoordinates() : float[]
+    +setId() : void
+    +getId() : String
+    +getColor() : String
+}
+
+class RectangleClassAdapter {
+    -name : String
+}
+
+
+
+class Rectangle {
+    +setShape() : void
+    +getArea() : float
+    +getOriginX() : float
+    +getOriginY() : float
+    +getOppositeCornerX() : float
+    +getOppositeCornerY() : float
+    +getColor() : String
+   	-x0 : float
+   	-y0 : float
+   	-height : float
+   	-width : float
+    -color : String
+}
+
+
+Polygon <|-- RectangleClassAdapter
+Client --> Polygon
+RectangleClassAdapter --> Rectangle
+
+
+@enduml
