@@ -1,0 +1,29 @@
+@startuml
+
+actor main
+actor timer
+activate main
+main -> TimePulseObservable : new
+TimePulseObservable -> Observable : new
+TimePulseObservable -> Timer : delay timer thread for 5 seconds
+main -> TimePulseWriter : new
+main -> TimePulseObservable : subscribe(pulseWriter)
+alt isOk == false
+	TimePulseObservable -> ObserverSubscribtionException : create and throw
+end
+main -> TimePulseBeeper : new
+main -> TimePulseObservable : subscribe(pulseBeeper)
+alt isOk == false
+	TimePulseObservable -> ObserverSubscribtionException : create and throw
+end
+== after the 5 seconds delay is over ==
+loop once every 5 seconds
+	TimePulseObservable -> timer: run timer thread
+	activate timer
+	TimePulseObservable -> Observable: timer:notifyObservers(date)
+	Observable -> TimePulseWriter : timer:onNotified(date)
+	Observable -> TimePulseBeeper : timer:onNotified(date)
+	deactivate timer
+end
+deactivate main
+@enduml

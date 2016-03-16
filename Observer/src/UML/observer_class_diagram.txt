@@ -1,0 +1,45 @@
+@startuml
+
+interface IObserver {
+	void onNotified(TMessage message)
+}
+
+interface IObservable {
+	void subscribe(IObserver<TMessage> observer)
+	void unsubscribe(IObserver<TMessage> observer)
+}
+
+class Observable {
+	-HashSet<IObserver<TMessage>> m_Observers
+	#Observable()
+	+void subscribe(IObserver<TMessage> observer)
+	+void unsubscribe(IObserver<TMessage> observer)
+	#void notifyObservers(TMessage message)
+}
+
+class TimePulseBeeper {
+	+void onNotified(Data message)
+}
+
+class TimePulseWriter {
+	+void onNotified(Data message)
+}
+
+class TimePulseObservable {
+	+TimePulseObservable(int seconds)
+}
+
+class ObserverSubscribtionException {
+	-{static}long serialVersionUID = 1L
+	+ObserverSubscribtionException(String message)
+}
+
+IObserver <|.. TimePulseBeeper
+IObserver <|.. TimePulseWriter
+IObservable <|.. Observable
+Observable <|-- TimePulseObservable
+Observable o--> "*" IObserver : m_Observers
+class IllegalStateException <|-- ObserverSubscribtionException
+Observable ..> "<<create>>" ObserverSubscribtionException
+
+@enduml
