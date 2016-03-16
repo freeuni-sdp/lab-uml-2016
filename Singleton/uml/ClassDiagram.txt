@@ -1,0 +1,10 @@
+@startuml
+class Singleton{
+-{static} Singleton _instance
++int value
++{static} Singleton getInstance()
+#Singleton()
++void setValue(int value)
++{static} void main(String[] args)
+}
+@enduml
