@@ -1,0 +1,20 @@
+@startuml
+actor Client #crimson
+
+Create MenuComponent
+Client -> MenuComponent: creates menus
+Create Menu
+MenuComponent -> Menu: specification
+Menu --> MenuComponent: return
+MenuComponent --> Client: return
+
+Client -> Menu : add
+Create MenuItem
+Menu -> MenuItem : create to add
+MenuItem --> Menu : return
+Menu --> Client: return
+Create Waitress 
+Client->Waitress : new
+Waitress->MenuComponent: print
+
+@enduml
