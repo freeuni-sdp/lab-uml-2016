@@ -1,0 +1,69 @@
+@startuml
+	title Memento
+	
+	interface TextBoxMementoInterface{
+		+String getDescription()
+	}
+	class Selection{
+		-int start
+		-int length
+		+int getStart()
+		+void setStart(int start)
+		+int getLength()
+		+void setLength(int length)
+		+boolean includes(int index)
+		+getEmpty()
+		
+	}
+	class TextBoxMemento{
+		-String text
+		-int caretPosition
+		-Selection selection
+		+TextBoxMemento(String text, int position, Selection selection)
+		+String getText()
+		+int getCaretPosition()
+		+Selection getSelection()
+	}
+	
+	
+	
+	class IncompatibleMementoException{
+		+public IncompatibleMementoException(String message, ClassCastException innerException)
+	}
+	
+	class Caretaker{
+		-TextBox textBox
+		-Stack<TextBoxMementoInterface> undoStack
+		+void snapshot()
+		+void undo()
+		+boolean canUndo()
+	}
+	Caretaker*->TextBox
+	Caretaker*-> "0..*" TextBoxMementoInterface
+	
+	class TextBox{
+		-String text
+		-int caretPosition
+		-Selection selection
+		+TextBox()
+		+TextBox(String text)
+		+String getText()
+		+int getCaretPosition()
+		+Selection getSelection()
+		+void setText(String text)
+		+void moveCaretBy(int offset)
+		+void moveCaretTo(int position)
+		+void select(Selection selection)
+		+TextBoxMemento createMemento()
+		+void applyMemento(TextBoxMementoInterface memento)
+	}
+	
+	TextBoxMementoInterface<|..TextBoxMemento
+	TextBox*-->Selection
+	TextBoxMemento*-->Selection
+	TextBox-->TextBoxMemento : creates
+	TextBox-->TextBoxMementoInterface : parameter
+	TextBox-->IncompatibleMementoException: creates
+	
+
+@enduml
