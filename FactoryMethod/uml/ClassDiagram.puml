@@ -1,0 +1,46 @@
+@startuml
+
+Class Program {
+    +{static}void main(String[] args)
+}
+
+abstract class BookReader {
+    -Book __book
+    +Book getBook()
+    +void SetBook(Book  value)
+    +{abstract} Book buyBook()
+    +void displayOwnedBooks()
+    +void buyBook()
+}
+
+class FantasyBookReader extends BookReader {
+    +Book buyBook()
+}
+
+class HorrorBookReader extends BookReader {
+    +Book buyBook()
+}
+
+class AdventureBookReader extends BookReader {
+    +Book buyBook()
+}
+
+abstract class Book
+
+class Dracula  extends Book
+
+class LordOfTheRings  extends Book
+
+class TreasureIsland  extends Book
+
+class Encyclopedia  extends Book
+
+Program -down..> Book
+Program -down..> BookReader
+
+FantasyBookReader -right..> LordOfTheRings
+AdventureBookReader -right..> TreasureIsland
+HorrorBookReader -right..> Dracula
+
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+actor main
+
+
+main -> Main
+create BookReader
+
+activate Main
+create BookReader
+
+Main -> BookReader : new
+
+activate BookReader
+
+Main -> BookReader : buyBook
+
+create Book
+
+BookReader -> Book : new
+
+Main -> BookReader : displayOwnedBooks
+
+
+Book -> Main
+deactivate Main
+activate BookReader
+
+@enduml
