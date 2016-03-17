@@ -1,0 +1,53 @@
+@startuml
+actor main
+create "hddS: HDDFileTransmissionStrategy"
+main -> "hddS: HDDFileTransmissionStrategy": new(destination)
+create "hddC: FileTransmissionContext"
+main -> "hddC: FileTransmissionContext": new(hddS)
+main -> "hddC: FileTransmissionContext": transmit(files)
+activate "hddC: FileTransmissionContext"
+"hddC: FileTransmissionContext" -> "hddS: HDDFileTransmissionStrategy": transmit(files)
+activate "hddS: HDDFileTransmissionStrategy"
+"hddS: HDDFileTransmissionStrategy" -> AbstractFileTransmissionStrategy: Log(files)
+activate AbstractFileTransmissionStrategy
+AbstractFileTransmissionStrategy --> "hddS: HDDFileTransmissionStrategy"
+deactivate AbstractFileTransmissionStrategy
+"hddS: HDDFileTransmissionStrategy" --> "hddC: FileTransmissionContext"
+deactivate "hddS: HDDFileTransmissionStrategy"
+"hddC: FileTransmissionContext" --> main
+deactivate "hddC: FileTransmissionContext"
+
+create "ftpS: FTPFileTransmissionStrategy"
+main -> "ftpS: FTPFileTransmissionStrategy": new(destination)
+create "ftpC: FileTransmissionContext"
+main -> "ftpC: FileTransmissionContext": new(ftpS)
+main -> "ftpC: FileTransmissionContext": transmit(files)
+activate "ftpC: FileTransmissionContext"
+"ftpC: FileTransmissionContext" -> "ftpS: FTPFileTransmissionStrategy": transmit(files)
+activate "ftpS: FTPFileTransmissionStrategy"
+"ftpS: FTPFileTransmissionStrategy" -> AbstractFileTransmissionStrategy: Log(files)
+activate AbstractFileTransmissionStrategy
+AbstractFileTransmissionStrategy --> "ftpS: FTPFileTransmissionStrategy"
+deactivate AbstractFileTransmissionStrategy
+"ftpS: FTPFileTransmissionStrategy" --> "ftpC: FileTransmissionContext"
+deactivate "ftpS: FTPFileTransmissionStrategy"
+"ftpC: FileTransmissionContext" --> main
+deactivate "ftpC: FileTransmissionContext"
+
+create "httpS: HTTPFileTransmissionStrategy"
+main -> "httpS: HTTPFileTransmissionStrategy": new(destination)
+create "httpC: FileTransmissionContext"
+main -> "httpC: FileTransmissionContext": new(httpS)
+main -> "httpC: FileTransmissionContext": transmit(files)
+activate "httpC: FileTransmissionContext"
+"httpC: FileTransmissionContext" -> "httpS: HTTPFileTransmissionStrategy": transmit(files)
+activate "httpS: HTTPFileTransmissionStrategy"
+"httpS: HTTPFileTransmissionStrategy" -> AbstractFileTransmissionStrategy: Log(files)
+activate AbstractFileTransmissionStrategy
+AbstractFileTransmissionStrategy --> "httpS: HTTPFileTransmissionStrategy"
+deactivate AbstractFileTransmissionStrategy
+"httpS: HTTPFileTransmissionStrategy" --> "httpC: FileTransmissionContext"
+deactivate "httpS: HTTPFileTransmissionStrategy"
+"httpC: FileTransmissionContext" --> main
+deactivate "httpC: FileTransmissionContext"
+@enduml

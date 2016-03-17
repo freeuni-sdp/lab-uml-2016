@@ -1,0 +1,37 @@
+@startuml
+Abstract class Bank{
+    #bso BankServiceOrganizer
+    {abstract} customerArrive(index)
+    {abstract} endService(index)
+    {abstract} showStatus()
+
+}
+
+interface BankServiceOrganizer{
+    +entityChanged(BankEntity bankEntity)
+}
+
+Abstract class BankEntity{
+    +bOrganizer: BankServiceOrganizer
+    +changed()
+}
+
+class Queue{
+    +dequeue()
+    +enqueue()
+}
+
+class Teller{
+    +initService(Queue q)
+    +endService(Queue q)
+}
+
+BankServiceOrganizer -o Bank :bso
+BankServiceOrganizer -o BankEntity:bOrganizer
+BankServiceOrganizer <|-- LittleBankServiceOrganizer
+Bank <|-- LittleBank
+BankEntity <|-- Queue
+BankEntity <|-- Teller
+LittleBankServiceOrganizer *- Queue: 2
+LittleBankServiceOrganizer *- Teller: 2
+@enduml
