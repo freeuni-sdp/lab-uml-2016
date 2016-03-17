@@ -1,0 +1,40 @@
+@startuml
+title Strategy
+interface FileTransmissionStrategy{
+    +transmit(List<File> files): void
+}
+
+abstract class AbstractFileTransmissionStrategy{
+    #destination: URI
+    ~log(List<File> files): void
+}
+
+class FTPFileTransmissionStrategy{
+    +transmit(List<File> files): void
+}
+
+class HDDFileTransmissionStrategy{
+    +transmit(List<File> files): void
+}
+
+class HTTPFileTransmissionStrategy{
+    +transmit(List<File> files): void
+}
+
+class FileTransmissionContext{
+    -fileTransmissionStrategy: FileTransmissionStrategy
+    +transmit(List<File> files): void
+}
+
+class TestFileTransmissionStrategy{
+    +{static}main(String[] args): void
+}
+
+FileTransmissionStrategy <|.. AbstractFileTransmissionStrategy
+AbstractFileTransmissionStrategy <|-- FTPFileTransmissionStrategy
+AbstractFileTransmissionStrategy <|-- HDDFileTransmissionStrategy
+AbstractFileTransmissionStrategy <|-- HTTPFileTransmissionStrategy
+FileTransmissionContext o-right-> FileTransmissionStrategy
+TestFileTransmissionStrategy .down.> FileTransmissionContext
+TestFileTransmissionStrategy ..> FileTransmissionStrategy
+@enduml
