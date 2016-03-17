@@ -1,0 +1,41 @@
+@startuml
+
+title  Template method
+
+abstract class SortingTemplate {
+	-ArrayList<Integer> listOfNumbers
+
+	+final templateMethod():void
+	==
+	+{abstract} sort():void
+	+{abstract} sortOrder():void
+	==
+	+{abstract} printSortedList():void
+	-void readNumbers()
+	-void cleanList()
+
+}
+
+class DecreasingOrder{
+    +sort():void
+    +sortOrder():void
+}
+
+class IncreasingOrder{
+    + sort():void
+    + sortOrder():void
+}
+
+SortingTemplate<|--down- DecreasingOrder
+
+
+SortingTemplate<|--down- IncreasingOrder
+
+
+class Tester {
+    main() : void
+}
+
+Tester "creates"  -up.>DecreasingOrder
+Tester "creates"  -up.> IncreasingOrder
+@enduml
