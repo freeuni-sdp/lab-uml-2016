@@ -1,0 +1,42 @@
+@startuml
+title prototype class diagram
+
+interface Cloneable {
+    +cloneItself(): Cloneable
+}
+
+abstract class CloneableTime {
+    +{abstract} setTime(int hr, int min, int sec): void
+    +{abstract} setHours(): void
+    +{abstract} getHours(): int
+    +{abstract} getMinutes(): int
+    +{abstract} getSeconds(): int
+    +cloneItself(): CloneableTime
+}
+
+class TimerImplementationC1 {
+    -hr: int
+    -min: int
+    -sec: int
+}
+
+class TimerImplementationC2 {
+    -secs: int
+}
+
+class SchedulerC {
+    +{static} calculateEnd(CloneableTime start, int hours): CloneableTime
+}
+
+class PrototypeExample {
+    +{static} main()
+}
+
+CloneableTime <|-- TimerImplementationC1
+CloneableTime <|-- TimerImplementationC2
+Cloneable <|.. CloneableTime
+PrototypeExample -> CloneableTime
+PrototypeExample -> SchedulerC
+SchedulerC -> CloneableTime
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+actor main
+
+create TextBox
+main -> TextBox: new
+
+create CareTaker
+main -> CareTaker: new(TextBox)
+
+
+create Selection
+main -> Selection: new
+
+main -> TextBox: moveCaretBy()
+main -> CareTaker: snapshot()
+activate CareTaker
+CareTaker -> TextBox: createMemento()
+activate TextBox
+create TextBoxMemento
+TextBox -> TextBoxMemento: new
+TextBox --> CareTaker
+deactivate TextBox
+CareTaker --> main
+deactivate CareTaker
+
+main -> TextBox: setText()
+
+main -> CareTaker: undo()
+activate CareTaker
+CareTaker -> TextBox: applyMemento(TextBoxMemento)
+deactivate CareTaker
+
+
+@enduml

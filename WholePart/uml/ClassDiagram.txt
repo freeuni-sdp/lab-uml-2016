@@ -1,0 +1,56 @@
+@startuml
+class Waitress{
+~MenuComponent allMenus
++Waitress(MenuComponent allMenus)
++void printMenu()
+}
+
+class MenuItem{
+~String name
+~String description
+~boolean vegetarian
+~double price
++MenuItem(String name, String description, boolean vegetarian, double price)
++String getName()
++String getDescription()
++double getPrice()
++boolean isVegetarian()
++void print()
+}
+
+abstract class MenuComponent{
++void add(MenuComponent menuComponent)
++void remove(MenuComponent menuComponent)
++MenuComponent getChild(int i)
++String getName()
++String getDescription()
++double getPrice() 
++boolean isVegetarian()
++void print()
+}
+
+class Client{
++void test()
++{static} void main(String args[])
+}
+
+class Menu{
+~ArrayList<MenuComponent> menuComponents
+~String name
+~String description
++Menu(String name, String description)
++void add(MenuComponent menuComponent)
++void remove(MenuComponent menuComponent)
++MenuComponent getChild(int i)
++String getName()
++String getDescription()
++void print()
+}
+
+MenuComponent <|-- Menu
+MenuComponent <|-- MenuItem
+MenuComponent <-- Client
+Waitress <-- Client
+Menu o-- MenuComponent
+Waitress *-- MenuComponent
+@enduml

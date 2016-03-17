@@ -1,0 +1,32 @@
+@startuml
+
+/' Iterator UML sequence diagram '/
+/' By Nika Chkhartishvili '/
+
+title Iterator
+
+/' Main method '/
+actor main
+
+/' Creation of Iterable '/
+create Destinations
+main -> Destinations : new
+
+/' Adding data '/
+loop Adding destinations
+    main -> Destinations : add(String)
+end
+
+/' Creation if iterator '/
+main -> Destinations : createIterator()
+create DestinationsIterator
+Destinations -> DestinationsIterator : new
+Destinations --> main : Iterator
+
+/' Cycling through iterator '/
+loop while not isDone()
+    main -> DestinationsIterator : next()
+    DestinationsIterator --> main : Next element
+end
+
+@enduml
