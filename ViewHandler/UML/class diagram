@@ -1,0 +1,65 @@
+@startuml
+abstract class AbstractView {
+  #String name
+  +{abstract} String init()
+  +{abstract} String resize()
+  +{abstract} String update()
+  +void setName(String name)
+  +String getName()
+  +String open()
+  +String close()
+  +String move()
+}
+
+interface ViewSupplier {
+	+String resizeOptions()
+	+String updateOptions()
+}
+
+class ChatViewSupplier {
+	+String resizeOptions()
+	+String updateOptions()
+}
+
+ViewSupplier<|--ChatViewSupplier
+
+class ChatView {
+	~ChatViewSupplier sup
+	+ChatView()
+	+String init()
+	+String resize()
+	+String update()
+}
+
+AbstractView<|--ChatView
+
+class VideoView {
+	~VideoViewSupplier sup
+	+VideoView()
+	+String init()
+	+String resize()
+	+String update()
+}
+
+AbstractView<|--VideoView
+
+class VideoViewSupplier{
+	+String resizeOptions()
+	+String updateOptions()
+}
+
+ViewSupplier<|--VideoViewSupplier
+
+class ViewHandler{
+	-ArrayList<AbstractView> views
+	+ViewHandler()
+	+void openView(AbstractView view)
+	+void closeView(AbstractView view)
+	+void top(AbstractView view)
+	+void resize(AbstractView view)
+	+void update(AbstractView view)
+	+void move(AbstractView view)
+	+void tile()
+}
+
+@enduml

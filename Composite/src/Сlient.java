@@ -1,5 +1,5 @@
 
-public class CompositeExample {
+public class Сlient {
 	public static void main(String[] args) {
 		Component monitor = new SinglePart("LCD Monitor", 115);
 		Component keyboard = new SinglePart("US Keyboard", 20);

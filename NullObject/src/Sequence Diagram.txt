@@ -1,0 +1,29 @@
+@startuml
+Actor Program #ff6666
+participant ProductFactory
+
+create Cheese
+Program -> Cheese: new 
+
+Program -> ProductFactory: new
+activate ProductFactory
+
+Program -> ProductFactory: getProductByName("cheese")
+ProductFactory -> Cheese
+activate Cheese
+
+Program -> Cheese: getProductInfo()
+Cheese --> Program: "Price of cheese\nis 10$"
+deactivate Cheese
+
+Program -> ProductFactory: getProductByName("bread")
+create NullObject
+ProductFactory -> NullObject
+activate NullObject
+
+Program -> NullObject: getProductInfo()
+NullObject --> Program: "Sorry we don't\nhave such product\nin our stock"
+deactivate NullObject
+deactivate ProductFactory
+
+@enduml

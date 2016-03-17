@@ -1,0 +1,43 @@
+@startuml
+
+interface Product {
+	+String getProductInfo()
+	+String getName()
+}
+class Meat {
+	-String name
+	-int price
+	+Meat(int price)
+	+String getName()
+	+String getProductInfo()
+}
+class Cheese {
+	-String name
+	-int price
+	+Cheese(int price)
+	+String getName()
+	+String getProductInfo()
+}
+class NullObject {
+	-String name
+	+String getName()
+	+NullObject()
+	+String getProductInfo()
+}
+class ProductFactory {
+	+{static}int MEAT_PRICE
+	+{static}int CHEESE_PRICE
+	+ProductFactory()
+	+Product getProductByName(String name)
+}
+
+Meat --up|> Product
+Cheese --up|> Product
+NullObject --up|> Product
+
+ProductFactory ..down> Meat
+ProductFactory ..> Cheese
+ProductFactory ..> NullObject
+
+
+@enduml

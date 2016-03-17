@@ -1,0 +1,29 @@
+@startuml
+actor main
+main -> ViewHandler : new
+main -> ChatView : new
+main -> ChatView : setName("Little Chatty")
+
+main -> ViewHandler : openView(myChat)
+ViewHandler -> myChat : add(myChat)
+
+main -> VideoView : new
+VideoView -> VideoViewSupplier : new
+main -> VideoView : setName("Videoman")
+
+main -> ViewHandler : openView(myVideo)
+ViewHandler -> myVideo : add(myVideo)
+
+main -> ViewHandler : move(myChat)
+main -> ViewHandler : move(myVideo)
+main -> ViewHandler : update(myChat)
+main -> ViewHandler : update(myVideo)
+
+main -> ViewHandler : closeView(myChat)
+ViewHandler -> myChat : remove(myChat)
+
+main -> ViewHandler : closeView(myVideo)
+ViewHandler -> myVideo : remove(myVideo)
+
+deactivate main
+@enduml
