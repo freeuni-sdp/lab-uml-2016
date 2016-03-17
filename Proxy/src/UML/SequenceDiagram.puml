@@ -1,0 +1,48 @@
+@startuml
+actor main
+
+create ProxyFileHandler
+main -> ProxyFileHandler : new
+
+main -> ProxyFileHandler : getFileName()
+
+main -> ProxyFileHandler : getContent()
+
+activate ProxyFileHandler
+
+alt realHandler == null
+    create RealFileHandler
+    ProxyFileHandler -> RealFileHandler : new
+end
+
+ProxyFileHandler -> RealFileHandler : getContent()
+activate RealFileHandler
+  RealFileHandler --> ProxyFileHandler : content
+deactivate RealFileHandler
+
+ProxyFileHandler --> main : content
+
+deactivate ProxyFileHandler
+
+
+main -> ProxyFileHandler : getLine()
+activate ProxyFileHandler
+
+alt requestedLine == lineNumber
+    ProxyFileHandler --> main : lineText
+else
+    alt realHandler == null
+        ProxyFileHandler -> RealFileHandler : new
+    end
+    ProxyFileHandler -> RealFileHandler : getLine()
+    activate RealFileHandler
+        RealFileHandler --> ProxyFileHandler : lineText
+    deactivate RealFileHandler
+    end
+
+ProxyFileHandler --> main : lineText
+
+deactivate ProxyFileHandler
+
+
+@enduml
