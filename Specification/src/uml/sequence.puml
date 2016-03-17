@@ -1,0 +1,36 @@
+@startuml
+
+title  Specification
+
+actor user
+
+create BrandSpecification
+user -> BrandSpecification: new
+BrandSpecification --> user
+
+create TypeSpecification
+user -> TypeSpecification: new
+TypeSpecification --> user
+
+create Mobile
+user -> Mobile: new *
+Mobile --> user: *
+
+create ArrayList
+user -> ArrayList: new
+ArrayList --> user
+
+user -> ArrayList: add(mobile)
+user -> ArrayList: add(mobile)
+user -> ArrayList: add(mobile)
+user -> ArrayList: add(mobile)
+
+loop for not isDone()
+    user ->   ArrayList :i=0 ; i < mobile.size()
+ 	user -> TypeSpecification: add(BrandSpecification)
+ 	TypeSpecification --> user: ISpecification
+ 	user -> ISpecification: IsSatisfiedBy(mobile)
+ 	IsSatisfiedBy --> user: boolean
+end
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+
+title  Specification
+
+interface ISpecification {
+	 +IsSatisfiedBy(T o): boolean
+     +And(ISpecification<T> specification): ISpecification
+     +Or(ISpecification<T> specification): ISpecification
+     +Not(ISpecification<T> specification): ISpecification
+}
+
+abstract class CompositeSpecification {
+	+{abstract} IsSatisfiedBy(T o): boolean 	
+    +And(ISpecification<T> specification) : ISpecification<T>
+    +Or(ISpecification<T> specification) : ISpecification<T> 
+    +Not(ISpecification<T> specification) : ISpecification<T> 
+}
+
+class AndSpecification {
+	 -leftSpecification : ISpecification<T>
+	 -rightSpecification : ISpecification<T>
+	 
+	 +AndSpecification(ISpecification<T> left, ISpecification<T> right)
+	 +IsSatisfiedBy(T o): boolean 
+}
+
+
+class OrSpecification {
+	 -leftSpecification : ISpecification<T>
+	 -rightSpecification : ISpecification<T>
+	 
+	 +OrSpecification(ISpecification<T> left, ISpecification<T> right)
+	 +IsSatisfiedBy(T o): boolean 
+}
+
+
+class NotSpecification {	 
+	 -specification : ISpecification<T>	 
+	 +NotSpecification(ISpecification<T> spec) 	  
+	 +IsSatisfiedBy(T o) : boolean 
+}
+
+
+class BrandSpecification {
+	-BrandName : String
+    +BrandSpecification(String BrandName)
+    +IsSatisfiedBy(T o) : boolean 
+}
+
+class TypeSpecification {
+	-Type : String ;
+    +TypeSpecification(String Type)
+    +IsSatisfiedBy(T o) : boolean  
+}
+
+
+CompositeSpecification ..> ISpecification
+AndSpecification --> CompositeSpecification
+OrSpecification --> CompositeSpecification
+NotSpecification --> CompositeSpecification
+BrandSpecification --> CompositeSpecification
+TypeSpecification --> CompositeSpecification
+AndSpecification --> ISpecification: "2"
+OrSpecification --> ISpecification: "2"
+NotSpecification --> ISpecification: "1"
+
+@enduml
