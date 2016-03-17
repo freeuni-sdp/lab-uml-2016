@@ -1,0 +1,40 @@
+@startuml
+
+title Composite
+abstract class Component{
+    # int price
+    + {abstract} void describe()
+    + int getPrice()
+    + void remove()
+    + void add()
+    + Component getChild(int n)
+}
+
+class SinglePart{
+    + void describe()
+}
+
+class CompoundPart{
+    + void describe()
+    + int getPrice()
+    + void remove()
+    + void add()
+    + Component getChild(int n)
+}
+
+class SinglePartException{
+}
+
+class Сlient{
+
+}
+
+Сlient -right-> Component
+
+skinparam linetype ortho
+Component .right.> SinglePartException
+CompoundPart o--up Component
+Component <|--down SinglePart
+Component <|--down CompoundPart
+
+@enduml
