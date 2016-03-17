@@ -1,0 +1,103 @@
+@startuml
+
+interface AbstractCommand {
++ execute()
++ undo()
++ getType() : CommandType
++ getName() : String
+}
+
+class Controller {
+- CommandProcessor cmdProcessor
+
++ callUndo()
++ callRedo()
++ deletePressed()
++ upperCasePressed()
++ lowerCasePressed()
+}
+
+class CommandProcessor {
+Stack<AbstractCommand> cmds
+
++ executeCommand()
++ undoLastCommand()
++ redoLastCommand()
+}
+
+class DeleteCommand implements AbstractCommand {
+EditText editText
+int startIndex
+int endIndex
+String removedTxt
+CommandType cmdType
+
++ execute()
++ undo()
++ getType() : CommandType
++ getName() : String
+}
+
+class LowerCaseLetter implements AbstractCommand{
+EditText editText
+CommandType cmdType
+int index
+
++ execute()
++ undo()
++ getType() : CommandType
++ getName() : String
+}
+
+class UpperCaseLetter implements AbstractCommand{
+EditText editText
+CommandType cmdType
+int index
+
++ execute()
++ undo()
++ getType() : CommandType
++ getName() : String
+}
+
+class EditText {
+String text
+
++ getText() : String
++ setText()
+}
+
+class Supplier {
+String text
+
++ getSelectedText() : String
++ deleteText() : String
++ getString() : String
++ upperCaseText() : String
++ lowerCaseText() : String
+}
+
+class Testing {
+void main()
+}
+
+Testing ..> EditText: <<creates>>
+Testing ..> Controller: <<creates>>
+CommandProcessor -> "*" AbstractCommand : cmds
+Controller o--> CommandProcessor
+DeleteCommand --> Supplier: <<local>>
+LowerCaseLetter --> Supplier: <<local>>
+UpperCaseLetter --> Supplier: <<local>>
+
+DeleteCommand -> EditText
+UpperCaseLetter -> EditText
+LowerCaseLetter -> EditText
+
+Supplier --> EditText: <<parameter>>
+
+enum CommandType {
+normal
+no_undo
+}
+
+@enduml

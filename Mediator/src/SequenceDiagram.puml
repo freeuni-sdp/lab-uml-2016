@@ -1,0 +1,160 @@
+@startuml
+actor Main
+Main -> "bank: LittleBank": showStatus()
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": customerArrive(1)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue(1)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(1)"
+"bank: LittleBank" -> "q: Queue": enqueue()
+"q: Queue" -> "bso: LittleBankServiceOrganizer": entityChanged(q)
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(0)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": initService(q)
+"t: Teller" -> "q: Queue": dequeue()
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+
+Main -> "bank: LittleBank": customerArrive(1)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue(1)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(1)"
+"bank: LittleBank" -> "q: Queue": enqueue()
+"q: Queue" -> "bso: LittleBankServiceOrganizer": entityChanged(q)
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": initService(q)
+"t: Teller" -> "q: Queue": dequeue()
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": customerArrive(1)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue(1)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(1)"
+"bank: LittleBank" -> "q: Queue": enqueue()
+"q: Queue" -> "bso: LittleBankServiceOrganizer": entityChanged(q)
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": customerArrive(2)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue(2)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(2)"
+"bank: LittleBank" -> "q: Queue": enqueue()
+"q: Queue" -> "bso: LittleBankServiceOrganizer": entityChanged(q)
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": endService(1)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": "endService()"
+"t: Teller" -> "bso: LittleBankServiceOrganizer": "entityChanged(t)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(1)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": initService(q)
+"t: Teller" -> "q: Queue": dequeue()
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": endService(2)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller(2)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(2)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": "endService()"
+"t: Teller" -> "bso: LittleBankServiceOrganizer": "entityChanged(t)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(2)"
+"bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue(2)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": initService(q)
+"t: Teller" -> "q: Queue": dequeue()
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": endService(2)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller(2)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(2)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": "endService()"
+"t: Teller" -> "bso: LittleBankServiceOrganizer": "entityChanged(t)"
+
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+Main -> "bank: LittleBank": endService(1)
+"bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller(1)"
+"bso: LittleBankServiceOrganizer" -> "t: Teller": "endService()"
+"t: Teller" -> "bso: LittleBankServiceOrganizer": "entityChanged(t)"
+
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "t := getTeller()"
+    "bso: LittleBankServiceOrganizer" -> "tellers: ArrayList<Teller>": "t := getTeller()"
+end
+
+loop
+    "bank: LittleBank" -> "bso: LittleBankServiceOrganizer": "q := getQueue()"
+    "bso: LittleBankServiceOrganizer" -> "queues: ArrayList<Queue>": "q := getQueue()"
+end
+
+@enduml

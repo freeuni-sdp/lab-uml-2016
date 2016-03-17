@@ -1,0 +1,33 @@
+@startuml
+
+ 
+actor user 
+
+create OrientedBuilder 
+
+user -> OrientedBuilder: new
+OrientedBuilder --> user
+ 
+
+create ERHardCodedDirector
+user ->ERHardCodedDirector: getModel(new OrientedBuilder)
+ 
+create ModelBuilder
+ERHardCodedDirector -> ModelBuilder: *
+ModelBuilder --> ERHardCodedDirector
+ERHardCodedDirector --> user
+ 
+
+create NotOrientedBuilder
+user -> NotOrientedBuilder: new
+NotOrientedBuilder --> user
+user ->ERHardCodedDirector: getModel(new NotOrientedBuilder)
+ERHardCodedDirector -> ModelBuilder: *
+ModelBuilder --> ERHardCodedDirector
+ERHardCodedDirector --> user
+
+create ERModel
+user -> ERModel: showStructure()
+
+
+@enduml

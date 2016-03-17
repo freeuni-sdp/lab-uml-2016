@@ -1,0 +1,40 @@
+@startuml
+
+class ProxyExample {
+    {static} +void main()
+}
+
+abstract class FileHandler {
+    #fileName : String
+    +FileHandler(String fileName)
+    +getFileName() : String
+    +{abstract} getContent() : String
+    +{abstract} getLine(int requestedLine) : String
+}
+
+class ProxyFileHandler {
+   -realHandler : RealFileHandler
+   -lineNumber : int
+   -lineText : String
+   +ProxyFileHandler(String fileName)
+   +getContent() : String
+   +getLine((int requestedLine) : String
+}
+
+class RealFileHandler {
+    -byte[] content
+    +getContent() : String
+    +getLine(int requestedLine) : String
+
+}
+
+class FileInputStream {
+
+}
+
+FileHandler <|-- ProxyFileHandler
+FileHandler <|-- RealFileHandler
+ProxyExample -> ProxyFileHandler
+RealFileHandler -> FileInputStream
+ProxyFileHandler *-> RealFileHandler : realHandler
+@enduml

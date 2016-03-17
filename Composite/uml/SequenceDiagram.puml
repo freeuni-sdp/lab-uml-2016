@@ -1,0 +1,79 @@
+@startuml
+
+actor main
+
+create "monitor:SinglePart"
+main -> "monitor:SinglePart": new
+
+create "keyboard:SinglePart"
+main -> "keyboard:SinglePart": new
+
+create "processor:SinglePart"
+main -> "processor:SinglePart": new
+
+create "ram:SinglePart"
+main -> "ram:SinglePart": new
+
+create "hardDisk:SinglePart"
+main -> "hardDisk:SinglePart": new
+
+create "mainSystem:CompoundPart"
+main -> "mainSystem:CompoundPart": new
+
+main -> "mainSystem:CompoundPart": add(processor)
+main -> "mainSystem:CompoundPart": add(ram)
+main -> "mainSystem:CompoundPart": add(harDisk)
+
+create "computer:CompoundPart"
+main -> "computer:CompoundPart": new
+
+main -> "computer:CompoundPart": add(monitor)
+main -> "computer:CompoundPart": add(keyboard)
+main -> "computer:CompoundPart": add(mainSystem)
+
+main -> "monitor:SinglePart": describe()
+activate "monitor:SinglePart"
+deactivate "monitor:SinglePart"
+"monitor:SinglePart" --> main
+
+main -> "mainSystem:CompoundPart": describe()
+activate "mainSystem:CompoundPart"
+"mainSystem:CompoundPart" -> "mainSystem:CompoundPart": getPrice()
+activate "mainSystem:CompoundPart"
+loop for Component in children
+    "mainSystem:CompoundPart" -> Component: getPrice()
+end
+
+deactivate "mainSystem:CompoundPart"
+loop for Component in children
+    "mainSystem:CompoundPart" -> Component: describe()
+end
+
+deactivate "mainSystem:CompoundPart"
+
+main -> "computer:CompoundPart": describe()
+activate "computer:CompoundPart"
+"computer:CompoundPart" -> "computer:CompoundPart":getPrice()
+activate "computer:CompoundPart"
+loop for Component in children
+    "computer:CompoundPart" -> Component: getPrice()
+end
+
+deactivate "computer:CompoundPart"
+loop for Component in children
+    "computer:CompoundPart" -> Component:describe()
+end
+
+deactivate "computer:CompoundPart"
+main -> "monitor:SinglePart": add(keyboard)
+main -> "monitor:SinglePart": get(3)
+
+destroy "monitor:SinglePart"
+destroy "keyboard:SinglePart"
+destroy "processor:SinglePart"
+destroy "ram:SinglePart"
+destroy "hardDisk:SinglePart"
+destroy "mainSystem:CompoundPart"
+destroy "computer:CompoundPart"
+
+@enduml
