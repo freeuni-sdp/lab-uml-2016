@@ -1,0 +1,45 @@
+@startuml
+title Template Method
+actor user
+control scanner
+
+create IncreasingOrder
+user ->IncreasingOrder:<<create>>
+create DecreasingOrder
+user ->DecreasingOrder:<<create>>
+
+create scanner
+user ->scanner:initLoop
+activate scanner
+scanner -> user : message
+
+user -> scanner:int
+
+create switch
+scanner -->switch
+activate switch
+switch ->IncreasingOrder:1.0[answer is 1 ]
+switch -->DecreasingOrder:2.0[answer is 2 ]
+deactivate switch
+
+activate SortingTemplate
+IncreasingOrder->SortingTemplate:1.1
+DecreasingOrder->SortingTemplate:2.1
+
+SortingTemplate -> SortingTemplate:TemplateMethod()
+activate SortingTemplate #DarkSalmon
+
+
+|||
+|||
+SortingTemplate->IncreasingOrder:1.2 : sort()
+SortingTemplate->DecreasingOrder:1.3 : sortOrder()
+|||
+SortingTemplate->IncreasingOrder:2.2 : sortOrder()
+
+SortingTemplate->DecreasingOrder:2.3 : sortOrder()
+deactivate SortingTemplate
+deactivate SortingTemplate
+
+
+@enduml
