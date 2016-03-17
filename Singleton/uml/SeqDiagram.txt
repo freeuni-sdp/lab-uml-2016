@@ -1,0 +1,10 @@
+@startuml
+actor Client
+Client -> Singleton: GetInstance()
+activate Singleton
+alt _instance == null
+	Singleton -> Singleton: Singleton()
+end
+Singleton --> Client: InstanceOfSingleton
+deactivate Singleton
+@enduml

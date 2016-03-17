@@ -1,0 +1,44 @@
+@startuml
+title \n<b>Command Processor</b>\n\n
+
+actor main
+create EditText
+main -> EditText: new
+create Controller
+main -> Controller: new
+create CommandProcessor
+Controller -> CommandProcessor: new
+create "cmds : Stack<AbstractCommand>"
+CommandProcessor -> "cmds : Stack<AbstractCommand>" : new
+
+main -> Controller: deletePressed()
+activate Controller
+    Controller -> "cmd : AbstractCommand"
+    create DeleteCommand
+    Controller -> DeleteCommand: new
+    DeleteCommand --> Controller: :cmd
+    Controller -> CommandProcessor: executeCommand(cmd)
+
+    activate CommandProcessor
+        CommandProcessor -> "cmd : AbstractCommand": execute()
+
+        activate "cmd : AbstractCommand"
+            create Supplier
+            "cmd : AbstractCommand" -> Supplier: new
+            "cmd : AbstractCommand" -> Supplier: deleteText
+            Supplier --> "cmd : AbstractCommand": text
+            "cmd : AbstractCommand" -> EditText: setText(text)
+        deactivate "cmd : AbstractCommand"
+
+        CommandProcessor -> "cmd : AbstractCommand": getType()
+        CommandProcessor <-- "cmd : AbstractCommand": type
+        alt type is normal
+            CommandProcessor -> "cmds : Stack<AbstractCommand>": push()
+        else type is no_undo
+            CommandProcessor -> "cmds : Stack<AbstractCommand>": clear()
+        end
+    deactivate CommandProcessor
+
+deactivate Controller
+
+@enduml

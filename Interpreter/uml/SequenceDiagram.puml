@@ -1,0 +1,65 @@
+@startuml
+	
+		title \n<b>Interpreter</b>\n\n
+		
+		actor main
+		
+		create VariableExpression
+		main -> VariableExpression: new
+		main -> VariableExpression: new
+		
+		create Constant
+		main -> Constant: new
+		
+		create AndExpression
+		main -> AndExpression: new
+		
+		create NotExpression
+		main -> NotExpression: new
+		main -> AndExpression: new
+		
+		create OrExpression
+		main -> OrExpression: new
+		
+		create Context
+		main -> Context: new
+		
+		loop 4 times
+			main -> Context: assign()
+			activate Context
+			Context -> VariableExpression: getVarName()
+			activate VariableExpression
+			VariableExpression --> Context
+			deactivate VariableExpression
+			Context --> main
+			deactivate Context
+			
+			main -> Context: assign()
+			activate Context
+			Context -> VariableExpression: getVarName()
+			activate VariableExpression
+			VariableExpression --> Context
+			deactivate VariableExpression
+			Context --> main
+			deactivate Context
+			
+			main -> OrExpression: evaluate()
+			activate OrExpression
+			OrExpression -> AndExpression: evaluate()
+			activate AndExpression
+			AndExpression -> Constant: evaluate()
+			Constant --> AndExpression
+			AndExpression -> VariableExpression: evaluate()
+			VariableExpression -> Context: lookup()
+			activate VariableExpression
+			Context --> VariableExpression
+			VariableExpression --> AndExpression
+			deactivate VariableExpression
+			AndExpression --> OrExpression
+			deactivate AndExpression
+			OrExpression --> main
+			deactivate OrExpression
+		end
+		
+		
+	@enduml

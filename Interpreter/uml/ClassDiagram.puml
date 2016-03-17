@@ -1,0 +1,69 @@
+@startuml
+	
+		class InterpreterExample {
+			{static} +void main()
+		}
+		
+		interface BooleanExpression {
+			+void evaluate()
+		}
+		
+		class Context {
+			-HashTable vars
+			--
+			+void assign()
+			+void lookup()
+		}
+		
+		class AndExpression {
+			~BooleanExpression operand1
+			~BooleanExpression operand2
+			--
+			+void evaluate()
+		}
+		
+		class Constant {
+			-boolean value
+			--
+			+void evaluate()
+		}
+		
+		class NotExpression {
+			~BooleanExpression operand
+			--
+			+void evaluate()
+		}
+		
+		class OrExpression {
+			~BooleanExpression operand1
+			~BooleanExpression operand2
+			--
+			+void evaluate()
+		}
+		
+		class VariableExpression {
+			-String name
+			--
+			+void evaluate()
+			+void getVarName()
+		}
+		
+		BooleanExpression <|-- AndExpression
+		BooleanExpression <|-- Constant
+		BooleanExpression <|-- NotExpression
+		BooleanExpression <|-- OrExpression
+		BooleanExpression <|-- VariableExpression
+		
+		AndExpression o--> "2" BooleanExpression
+		OrExpression o--> "2" BooleanExpression
+		NotExpression o--> "1" BooleanExpression
+		
+		InterpreterExample ..> VariableExpression: <<create>>
+		InterpreterExample ..> OrExpression: <<create>>
+		InterpreterExample ..> AndExpression: <<create>>
+		InterpreterExample ..> Constant: <<create>>
+		InterpreterExample ..> NotExpression: <<create>>
+		
+		InterpreterExample --> Context
+	
+	@enduml
