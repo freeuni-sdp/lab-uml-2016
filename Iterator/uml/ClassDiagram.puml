@@ -32,7 +32,8 @@ class IteratorMain {
 
 Iterable <|-- Destinations
 Iterator <|-- DestinationsIterator
-IteratorMain --> Iterable
+Destinations -> DestinationsIterator : <<new>>
+IteratorMain --> Destinations
 IteratorMain --> Iterator
 
 @enduml
