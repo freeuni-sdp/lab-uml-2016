@@ -1,0 +1,75 @@
+@startuml
+
+title  Builder
+
+class BuilderExample {
+	{static} main(String args[])
+}
+
+class ERHardCodedDirector {
+	 {static} +Object getModel(ModelBuilder model)
+}
+
+class ERModel {
+	-Hashtable<String, Entity> modelEntities
+	-Hashtable<String, Relationship> modelRelations
+	+void addEntity(String name) 
+	+void addRelationship(String entity1, String entity2, String relation)
+	+void addCardMin(String entity, String relation, String value)
+	+void addCardMax(String entity, String relation, String value)
+	+void showStructure()
+}
+
+class Entity {
+	+String name
+	+Entity(String name)
+}
+
+class Relationship {
+	+String name
+	+Entity entity1 
+	+Entity entity2
+	+String cardMin1
+	+String cardMax1
+	+String cardMin2
+	+String cardMax2
+}
+
+abstract class ModelBuilder {
+	+void addEntity(String name)
+	+void addRelationship(String fromEntity, String toEntity, String relation)
+	+void addCardMin(String entity, String relation, String value)
+	+void addCardMax(String entity, String relation, String value)
+	{abstract} +Object getModel()
+}
+
+class NotOrientedERBuilder {
+	-ERModel erModel
+	+NotOrientedERBuilder()
+	+void addEntity(String name)
+	+void addRelationship(String from, String to, String relation)  
+	+void addCardMin(String entity, String relation, String value)
+	+void addCardMax(String entity, String relation, String value)
+	+Object getModel() 	
+}
+
+class OrientedERBuilder {
+	-Hashtable<String, String[]> relations
+	+OrientedERBuilder()
+	+void addRelationship(String from, String to, String relation)
+	+void addCardMax(String entity, String relation, String value)
+	+Object getModel()
+}
+ 
+Relationship -right-> "2" Entity
+ERModel -right-> "*" Entity
+ERModel -right-> "*" Relationship
+NotOrientedERBuilder -right-> ERModel
+NotOrientedERBuilder -down-> ModelBuilder
+OrientedERBuilder -down-> ModelBuilder
+BuilderExample ..> ERModel: <<local>>
+ERHardCodedDirector ..> ModelBuilder: <<parameter>>
+ERHardCodedDirector o-- ModelBuilder
+
+
+@enduml
